@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: upf
+  namespace: open5gs
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: upf
+
+  template:
+    metadata:
+      labels:
+        app: upf
+
+    spec:
+      containers:
+      - name: upf
+        image: open5gs-upf:latest
+        imagePullPolicy: Never
+
+        command:
+        - /usr/local/bin/open5gs-upfd
+
+        securityContext:
+          privileged: true
+
+        volumeMounts:
+        - name: upf-config
+          mountPath: /usr/local/etc/open5gs/upf.yaml
+          subPath: upf.yaml
+
+        - name: tun
+          mountPath: /dev/net/tun
+
+      volumes:
+      - name: upf-config
+        configMap:
+          name: upf-config
+
+      - name: tun
+        hostPath:
+          path: /dev/net/tun
+          type: CharDevice

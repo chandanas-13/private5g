@@ -1,0 +1,5 @@
+FROM open5gs-amf:latest
+
+COPY open5gs-upfd /usr/local/bin/open5gs-upfd
+
+CMD ["/usr/local/bin/open5gs-upfd"]

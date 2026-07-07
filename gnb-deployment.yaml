@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gnb
+  namespace: open5gs
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: gnb
+
+  template:
+    metadata:
+      labels:
+        app: gnb
+
+    spec:
+      hostNetwork: true
+
+      containers:
+      - name: gnb
+        image: gradiant/ueransim:3.3.0
+
+        command:
+          - nr-gnb
+
+        args:
+          - -c
+          - /ueransim/config/gnb.yaml
+
+        securityContext:
+          privileged: true
+
+        volumeMounts:
+        - name: gnb-config
+          mountPath: /ueransim/config/gnb.yaml
+          subPath: gnb.yaml
+
+      volumes:
+      - name: gnb-config
+        configMap:
+          name: gnb-config

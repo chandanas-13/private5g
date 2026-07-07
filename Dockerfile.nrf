@@ -1,0 +1,3 @@
+FROM ubuntu:22.04
+COPY open5gs-nrfd /usr/local/bin/
+CMD ["/usr/local/bin/open5gs-nrfd"]

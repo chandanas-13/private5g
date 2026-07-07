@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smf
+  namespace: open5gs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smf
+  template:
+    metadata:
+      labels:
+        app: smf
+    spec:
+      containers:
+      - name: smf
+        image: open5gs-smf:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 7777
+        volumeMounts:
+        - name: smf-config
+          mountPath: /etc/open5gs/smf.yaml
+          subPath: smf.yaml
+      volumes:
+      - name: smf-config
+        configMap:
+          name: smf-config

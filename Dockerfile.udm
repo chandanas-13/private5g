@@ -1,0 +1,4 @@
+FROM ubuntu:22.04
+COPY open5gs-udmd /usr/local/bin/
+CMD ["/usr/local/bin/open5gs-udmd"]
+

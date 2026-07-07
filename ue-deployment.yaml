@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ue
+  namespace: open5gs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ue
+  template:
+    metadata:
+      labels:
+        app: ue
+    spec:
+      containers:
+      - name: ue
+        image: free5gc/ueransim:latest
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            sleep 10
+            /ueransim/nr-ue -c /ueransim/open5gs-ue.yaml
+        volumeMounts:
+          - name: ue-config
+            mountPath: /ueransim/open5gs-ue.yaml
+            subPath: open5gs-ue.yaml
+      volumes:
+        - name: ue-config
+          configMap:
+            name: ue-config
+

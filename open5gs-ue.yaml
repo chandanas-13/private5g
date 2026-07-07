@@ -1,0 +1,20 @@
+logger:
+  level: info
+
+ue:
+  amf:
+    - address: amf.open5gs.svc.cluster.local
+  mme:  # sometimes ignored but safe in some builds
+    plmn:
+      mcc: 999
+      mnc: 70
+
+  usim:
+    imsi: "999700000000001"
+    key: "465B5CE8B199B49FAA5F0A2EE238A6BC"
+    opc: "E8ED289DEBA952E4283B54E88E6183CA"
+    op: ""
+    sequence_number: 140
+
+  gtp:
+    - type: "gtpu"

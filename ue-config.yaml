@@ -58,3 +58,8 @@ data:
     uacAcc:
       enabled: false
       normalClass: 0
+      class11: false
+      class12: false
+      class13: false
+      class14: false
+  class15: false

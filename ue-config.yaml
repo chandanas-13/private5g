@@ -49,3 +49,9 @@ data:
     cipheringMaxRate:
       uplink: full
       downlink: full
+    uacAic:
+      mps: false
+      mcs: false
+
+    uacAcc:
+      enabled: false

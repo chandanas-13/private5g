@@ -82,7 +82,6 @@ metadata:
   annotations:
     meta.helm.sh/release-name: loki
     meta.helm.sh/release-namespace: monitoring
-  creationTimestamp: "2026-07-09T05:07:35Z"
   labels:
     app.kubernetes.io/instance: loki
     app.kubernetes.io/managed-by: Helm
@@ -91,5 +90,4 @@ metadata:
     helm.sh/chart: loki-7.0.0
   name: loki
   namespace: monitoring
-  resourceVersion: "110141"
-  uid: 15ce9dca-48f9-4953-8a46-8950087bd311
+  

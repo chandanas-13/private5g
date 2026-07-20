@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: amf
+      annotations:
+        version: "v2"
     spec:
       containers:
       - name: amf

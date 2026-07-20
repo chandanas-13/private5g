@@ -1,0 +1,14 @@
+config:
+  clients:
+    - url: http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push
+      tenant_id: foo
+
+  snippets:
+    scrapeConfigs: |
+      []
+
+defaultVolumes: []
+defaultVolumeMounts: []
+
+extraVolumes: []
+extraVolumeMounts: []

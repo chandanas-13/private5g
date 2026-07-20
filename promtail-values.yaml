@@ -1,0 +1,95 @@
+config:
+  server:
+    http_listen_port: 3101
+    log_level: info
+
+  clients:
+    - url: http://loki:3100/loki/api/v1/push
+
+  positions:
+    filename: /run/promtail/positions.yaml
+
+  snippets:
+    scrapeConfigs: |
+      # ----------------------------
+      # Open5GS Logs
+      # ----------------------------
+      - job_name: open5gs
+        static_configs:
+          - targets:
+              - localhost
+            labels:
+              job: open5gs
+              __path__: /var/log/pods/open5gs_*/*/*.log
+
+        pipeline_stages:
+          - cri: {}
+
+      # ----------------------------
+      # UERANSIM gNB Logs
+      # ----------------------------
+      - job_name: ueransim-gnb
+        static_configs:
+          - targets:
+              - localhost
+            labels:
+              job: ueransim
+              component: gnb
+              __path__: /var/log/pods/*gnb*/*/*.log
+
+        pipeline_stages:
+          - cri: {}
+
+      # ----------------------------
+      # UERANSIM UE Logs
+      # ----------------------------
+      - job_name: ueransim-ue
+        static_configs:
+          - targets:
+              - localhost
+            labels:
+              job: ueransim
+              component: ue
+              __path__: /var/log/pods/*ue*/*/*.log
+
+        pipeline_stages:
+          - cri: {}
+
+      # ----------------------------
+      # Kubernetes Pod Logs
+      # ----------------------------
+      - job_name: kubernetes
+        static_configs:
+          - targets:
+              - localhost
+            labels:
+              job: kubernetes
+              __path__: /var/log/pods/*/*/*.log
+
+        pipeline_stages:
+          - cri: {}
+
+defaultVolumes:
+  - name: run
+    hostPath:
+      path: /run/promtail
+
+  - name: pods
+    hostPath:
+      path: /var/log/pods
+
+  - name: containers
+    hostPath:
+      path: /var/lib/docker/containers
+
+defaultVolumeMounts:
+  - name: run
+    mountPath: /run/promtail
+
+  - name: pods
+    mountPath: /var/log/pods
+    readOnly: true
+
+  - name: containers
+    mountPath: /var/lib/docker/containers
+    readOnly: true
